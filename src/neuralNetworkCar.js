@@ -1,9 +1,9 @@
 var num_inputs = 9;
-var num_actions = 11;
-var temporal_window = 0;
+var num_actions = 7;
 var SEGMENTS = 16;
 
 var brain = new deepqlearn.Brain(num_inputs, num_actions);
+brain.temporal_window = 10;
 
 var walls = [];
 
@@ -111,10 +111,10 @@ var distance = 0;
             var e = eyes[ei];
             var sr = e.sensed_proximity;
             if(e.sensed_type === -1 || e.sensed_type === 0) { 
-            ctx.strokeStyle = "rgb(0,0,0)"; // wall or nothing
+            ctx.strokeStyle = "rgb(0,0,0)";
             }
-            if(e.sensed_type === 1) { ctx.strokeStyle = "rgb(255,150,150)"; } // apples
-            if(e.sensed_type === 2) { ctx.strokeStyle = "rgb(150,255,150)"; } // poison
+            if(e.sensed_type === 1) { ctx.strokeStyle = "rgb(255,150,150)"; }
+            if(e.sensed_type === 2) { ctx.strokeStyle = "rgb(150,255,150)"; }
             ctx.beginPath();
             ctx.moveTo(playerPos.x, playerPos.y);
             ctx.lineTo(playerPos.x + sr * Math.sin(angle + e.angle),
@@ -122,7 +122,6 @@ var distance = 0;
             ctx.stroke();
         }
         
-        brain.visSelf(document.getElementById('reward'));
         document.getElementById("eyes").innerHTML = "";
         for (var i = 0; i < 9; i++) {
             document.getElementById("eyes").innerHTML += Math.floor(eyes[i].sensed_proximity) + ", ";
@@ -172,9 +171,9 @@ function generateSection() {
     yPrev = walls[walls.length - 2].p2.y;
     wPrev = walls[walls.length - 1].p2.x - walls[walls.length - 2].p2.x;
 
-    x = Math.random() * 200;
+    x = Math.random() * 150;
     y = yPrev - 50;
-    w = Math.random() * 100 + 200;
+    w = Math.random() * 50 + 100;
     
     util_add_box(xPrev, yPrev, wPrev, x, y, w);
     xPrev = x;
@@ -210,7 +209,7 @@ function periodic() {
         input.push(eyes[i].sensed_proximity/eyes[i].max_range);
     }
     
-    turn = (brain.forward(input) - 5);
+    turn = (brain.forward(input) - 3);
    
    var reward = 0;
    
@@ -255,11 +254,15 @@ function periodic() {
         reward += eyes[i].sensed_proximity / eyes[i].max_range / 9;
     }
     if (turn != 0)
-        reward -= 0.1;
+        reward -= 0.05 * Math.abs(turn);
     
-    brain.backward(reward);
+    if (isInside(0))
+        brain.backward(reward);
+    
     if (render)
         draw();
+    
+    brain.visSelf(document.getElementById('reward'));
 }
 var current_interval_id;
 function slow() {
