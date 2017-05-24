@@ -1,27 +1,3 @@
-<html>
-<head>
-<title>neural network</title>
- 
-<!-- CSS goes here -->
-<style>
-body {
-  background-color: #FFF; /* example... */
-}
-</style>
- 
-<!-- import convnetjs library -->
-
-<script src="util.js"></script>
-<script src="vis.js"></script>
-<script src="convnet.js"></script>
-<script src="convnet-min.js"></script>
-<script src="deepqlearn.js"></script>
-
- 
-<!-- javascript goes here -->
-<script type="text/javascript">
-
-
 var num_inputs = 9;
 var num_actions = 11;
 var temporal_window = 0;
@@ -274,7 +250,7 @@ function periodic() {
         }
     }
 
-    //Nagroda obliczana jest poni≈ºej
+    //Nagroda obliczana jest poniøej
     for (var i = 0; i < 9; i++) {
         reward += eyes[i].sensed_proximity / eyes[i].max_range / 9;
     }
@@ -299,15 +275,15 @@ function start() {
     current_interval_id = setInterval(periodic, 1);
 }
 
-var sw = true;
-function swi() {
-    if (sw == false) {
-        sw = true;
+var learn = true;
+function learnToggle() {
+    if (learn == false) {
+        learn = true;
         brain.learning = true;
          brain.epsilon_test_time = 0.05;
         }
     else {
-        sw = false;
+        learn = false;
         brain.learning = false;
          brain.epsilon_test_time = 0.0;
     }
@@ -320,21 +296,3 @@ function renderToggle() {
 function resetPos() {
     playerPos.x = 150;
 }
-
- 
-</script>
-</head>
- 
-<body onload="start()">
-<canvas id="c" width="1000" height="900"></canvas>
-<div id="reward"></div>
-<button onclick="swi()">learn toggle</button> 
-<button onclick="slow()">slow time</button> 
-<button onclick="renderToggle()">render toggle</button> 
-<div id="dist"></div>
-<div id="collisions"></div>
-<div id="eyes"></div>
-<div id="inside"></div>
-<button onclick="resetPos()">reset pos</button>
-</body>
-</html>

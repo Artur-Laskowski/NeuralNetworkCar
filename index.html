@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>neural network</title>
+ 
+<!-- import convnetjs library -->
+
+<script src="src/util.js"></script>
+<script src="src/vis.js"></script>
+<script src="src/convnet.js"></script>
+<script src="src/convnet-min.js"></script>
+<script src="src/deepqlearn.js"></script>
+
+<script src="src/neuralNetworkCar.js"></script>
+</head>
+ 
+<body onload="start()">
+<canvas id="c" width="1000" height="900"></canvas>
+<div id="reward"></div>
+<button onclick="learnToggle()">learn toggle</button> 
+<button onclick="slow()">slow time</button> 
+<button onclick="renderToggle()">render toggle</button> 
+<div id="dist"></div>
+<div id="collisions"></div>
+<div id="eyes"></div>
+<div id="inside"></div>
+<button onclick="resetPos()">reset pos</button>
+</body>
+</html>
