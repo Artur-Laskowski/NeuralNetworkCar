@@ -83,7 +83,6 @@ var distance = 0;
         this.found = false;
     }
     
-    
     function draw() {  
         var canvas=document.getElementById("c");
         var ctx=canvas.getContext("2d");
