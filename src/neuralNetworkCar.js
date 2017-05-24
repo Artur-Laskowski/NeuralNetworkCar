@@ -215,7 +215,10 @@ function periodic() {
    
    if (!isInside(turn)) {
         reward = -1;
-        turn = -turn;
+        if (playerPos.x > 150)
+            turn = -3;
+        else
+            turn = 3;
     }
 
     playerPos.x += turn;
@@ -249,7 +252,7 @@ function periodic() {
         }
     }
 
-    //Nagroda obliczana jest poni¿ej
+    //Reward is calculated below
     for (var i = 0; i < 9; i++) {
         reward += eyes[i].sensed_proximity / eyes[i].max_range / 9;
     }
