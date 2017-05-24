@@ -121,14 +121,6 @@ var distance = 0;
                      playerPos.y + sr * Math.cos(angle + e.angle));
             ctx.stroke();
         }
-        
-        document.getElementById("eyes").innerHTML = "";
-        for (var i = 0; i < 9; i++) {
-            document.getElementById("eyes").innerHTML += Math.floor(eyes[i].sensed_proximity) + ", ";
-        }
-        
-        document.getElementById("inside").innerHTML = isInside(0);
-        
     }
 
     
